@@ -1,16 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons"
+    />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      .centered {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 65%;
+        padding-bottom: 100px;
+        align-items: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .logo-main {
+        width: 80%;
+      }
+      .container {
+        margin: auto;
+        padding-top: 180px;
+        background-color: white;
+        top: 0;
+        height: 100%;
+        left: 100%;
+        width: 100%;
+      }
+      button {
+        text-align: center;
+
+        border: 2px solid lightgray;
+
+        background-color: white;
+
+        border-radius: 2px;
+
+        padding: 5px;
+
+        margin: 3px;
+
+        width: 50%;
+
+        font-family: "Alegreya", serif;
+        font-size: large;
+      }
+      button:hover,
+      button:active {
+        border-color: black;
+      }
+
+      input[type="submit"] {
+        text-align: center;
+
+        border: 2px solid lightgray;
+
+        background-color: white;
+
+        border-radius: 2px;
+
+        padding: 5px;
+
+        margin: 3px;
+
+        width: 60%;
+
+        font-family: "Alegreya", serif;
+        font-size: large;
+      }
+      input[type="submit"]:hover,
+      input[type="submit"]:active {
+        border-color: black;
+      }
+      #pop {
+        z-index: 5;
+        background-color: white;
+        border-radius: 2%;
+        border: 2px black solid;
+        opacity: 100%;
+        margin: auto;
+        padding: 10px;
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        position: absolute;
+        top: calc(40% - 25px);
+        left: calc(30%);
+        overflow: auto;
+      }
+      .pop-heading {
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+
+      .popAnimation {
+        -moz-animation: fadeIn; /* Firefox < 16 */
+        -ms-animation: fadeIn; /* Internet Explorer */
+        -o-animation: fadeIn; /* Opera < 12.1 */
+        animation: fadeIn;
+        -webkit-animation-name: fadeIn;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease;
+        -webkit-animation-fill-mode: forwards;
+      }
+      .forwardAnimation {
+        animation-direction: normal;
+      }
+
+      .reverseAnimation {
+        animation-direction: reverse;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Firefox < 16 */
+      @-moz-keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Safari, Chrome and Opera > 12.1 */
+      @-webkit-keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Internet Explorer */
+      @-ms-keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Opera < 12.1 */
+      @-o-keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      #overlay {
+        z-index: 2;
+        background-color: black;
+        opacity: 25%;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .overlayAnimation {
+        -moz-animation: fadePartialIn; /* Firefox < 16 */
+        -ms-animation: fadePartialIn; /* Internet Explorer */
+        -o-animation: fadePartialIn; /* Opera < 12.1 */
+        animation: fadePartialIn;
+        -webkit-animation-name: fadePartialIn;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease;
+        -webkit-animation-fill-mode: forwards;
+      }
+
+      @keyframes fadePartialIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 25%;
+        }
+      }
+
+      /* Firefox < 16 */
+      @-moz-keyframes fadePartialIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 25%;
+        }
+      }
+
+      /* Safari, Chrome and Opera > 12.1 */
+      @-webkit-keyframes fadePartialIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 25%;
+        }
+      }
+
+      /* Internet Explorer */
+      @-ms-keyframes fadePartialIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 25%;
+        }
+      }
+
+      /* Opera < 12.1 */
+      @-o-keyframes fadePartialIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 25%;
+        }
+      }
+      @media screen and (min-width: 800px) {
+        /* styles here for desktop only */
+        .textarea,
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"] {
+          width: 60%;
+        }
+        .letterhead {
+          height: 100px;
+          width: 35%;
+        }
+      }
+      @media screen and (max-width: 812px) {
+        /* styles here for mobile only */
+        #pop {
+          top: calc(10% - 25px);
+          left: calc(5%);
+          width: 80%;
+          position: fixed;
+        }
+        .letterhead {
+          height: 84px;
+          width: 50%;
+        }
+      }
+      textarea {
+        border: 1px solid #999;
+        -webkit-appearance: none;
+        padding: 6px 8px;
+        vertical-align: top;
+        border-radius: 4px;
+        margin: 2%;
+      }
+      input[type="email"] {
+        border: 1px solid #999;
+        -webkit-appearance: none;
+        padding: 6px 8px;
+        vertical-align: top;
+        border-radius: 4px;
+        margin: 2%;
+      }
+      input[type="text"] {
+        margin: 2%;
+        border: 1px solid #999;
+        -webkit-appearance: none;
+        padding: 6px 8px;
+        vertical-align: top;
+        border-radius: 4px;
+      }
+      input[type="tel"] {
+        border: 1px solid #999;
+        -webkit-appearance: none;
+        padding: 6px 8px;
+        vertical-align: top;
+        border-radius: 4px;
+        margin: 2%;
+      }
+      input[type="url"] {
+        border: 1px solid #999;
+        -webkit-appearance: none;
+        padding: 6px 8px;
+        vertical-align: top;
+        border-radius: 4px;
+        margin: 2%;
+      }
+    </style>
+    <script src="old.js"></script>
   </head>
-  <body>
+  <body style="background-color: #0a0a0a;">
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->

@@ -6,16 +6,22 @@
         v-bind:src="require('../assets' + '/butterfly-white-text.png')"
         alt
       />
-      <br/>
-      <p onclick="createPopUp(buildArtistForm())"
-        >artists: get in touch</p
+      <br />
+      <h1 class="no-italic" ref="editorials">Monarch Editorial</h1>
+
+      <li
+        class="editorial-list-item"
+        v-for="editorial in editorials"
+        :key="editorial.id"
+        v-on:click="goTo(editorial.fields.Attachments[0].url)"
       >
-      <br/>
-      <p onclick="createPopUp(buildNetworkForm())"
-        >creatives: join our network</p
-      >
-      <br/>
-      <p onclick="createPopUp(buildFanForm())">subscribe: stay in tune</p>
+        <h2>{{ editorial.fields.Name }}</h2>
+        <span class="date">{{
+          new Date(editorial.createdTime).toDateString()
+        }}</span>
+        <br />
+        <span>{{ editorial.fields.Description }}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -24,16 +30,52 @@
 export default {
   data() {
     return {
-      currentDate: new Date().toLocaleString(),
+      editorials: [],
+      loadedEditorials: false,
     };
   },
   created: function() {},
-  methods: {},
+  methods: {
+    goTo(url) {
+      window.goTo(url);
+    },
+    getEditorials() {
+      if (!this.loadedEditorials) {
+        fetch("/load_editorials.php", {
+          method: "GET",
+        }).then(async (res) => {
+          var body = await res.json();
+          console.log(body);
+          this.editorials = body;
+          this.loadedEditorials = true;
+        });
+      }
+
+      /* this.$axios.get('/load_editorials.php').then((res) => {
+              var data = res.data;
+              console.log(data);
+          }) */
+    },
+  },
+  mounted() {
+    this.getEditorials();
+  },
+  beforeDestroy() {},
 };
 </script>
 
 <style lang="scss">
-.centered-link {
+.no-italic {
+  font-style: normal !important;
+}
+
+.date {
+  font-style: italic;
+  font-size: small;
+}
+.editorial-list-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 body {
@@ -58,13 +100,27 @@ body {
   .nav-main {
     padding-top: 50px;
     width: 100%;
+    
   }
 }
 
 @media screen and (min-width: 800px) {
   /* styles here for desktop only */
-}
 
+  .editorial-list-item {
+    width: 50%;
+    padding-left: 25% !important;
+    padding-right: 25% !important;
+  }
+  .nav-main {
+      ul {
+          li {
+            margin-left: 0px;
+          }
+      }
+  }
+  
+}
 .colored-text {
   animation: text 3s 1;
 
@@ -94,10 +150,9 @@ body {
   font-family: "Courier New", Courier, Monaco;
   ul {
     list-style-type: none;
-
+    padding-left: 0;
     li {
       padding: 0px 14px 14px 0px;
-      margin-left: 20px;
       font-size: 16px;
       &:hover {
         background-color: limegreen;
@@ -116,7 +171,6 @@ body {
   }
   h1 {
     font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    font-style: italic;
     margin-bottom: 0px;
   }
   h3 {
@@ -124,6 +178,10 @@ body {
     font-size: 12px;
     margin-bottom: 80px;
     font-weight: 600;
+  }
+  h2 {
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
 }
 </style>

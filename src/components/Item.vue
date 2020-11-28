@@ -4,10 +4,17 @@
       <img v-bind:src="require('../assets' + this.mainImageURL)" alt />
       <div class="content-main__inner">
         <h1>{{this.title}}</h1>
-        <p>{{this.price}}</p>
-        <p>{{this.desc}}</p>
+         <p
+          v-for="item in this.desc"
+          :key="item"
+            >
+            {{item}}
+           </p>
+       
+        <p></p>
       </div>
     </div>
+    <router-link class="nav-link" to="/services">Back</router-link>
     <Footer />
   </div>
 </template>
@@ -38,6 +45,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+body {
+  background-color: white;
+}
+.router-link-active {
+  color: #202020 !important;
+  }
 .content-main {
   display: flex;
   justify-content: space-between;
@@ -45,19 +58,17 @@ export default {
   margin: auto;
   align-items:center;
   align-content: center;
-  height: 98vh;
+  background-color: white;
 
   &__inner {
-    background-color: limegreen;
-    height: 300px;
     width: 400px;
 
     h1 {
-      color: white;
+      color: #202020;
     }
 
     p{
-        color:white;
+        color:#202020;
     }
   }
 }

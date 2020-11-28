@@ -9,16 +9,45 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
+			name: 'homenav',
+			component: HomeNav
+		},
+		{
+			path: '/home',
 			name: 'home',
 			component: HomeNav
 		},
 		{
-			path: '/shop',
-			name: 'shop',
+			path: '/services',
+			name: 'services',
 			// route level code-splitting
 			// this generates a separate chunk (about.[hash].js) for this route
 			// which is lazy-loaded when the route is visited.
-			component: () => import(/* webpackChunkName: "about" */ './views/Shop.vue')
+			component: () => import(/* webpackChunkName: "about" */ './views/Services.vue')
+		},
+		{
+			path: '/about',
+			name: 'about',
+			// route level code-splitting
+			// this generates a separate chunk (about.[hash].js) for this route
+			// which is lazy-loaded when the route is visited.
+			component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+		},
+		{
+			path: '/contact',
+			name: 'contact',
+			// route level code-splitting
+			// this generates a separate chunk (about.[hash].js) for this route
+			// which is lazy-loaded when the route is visited.
+			component: () => import(/* webpackChunkName: "about" */ './views/Contact.vue')
+		},
+		{
+			path: '/editorial',
+			name: 'editorial',
+			// route level code-splitting
+			// this generates a separate chunk (about.[hash].js) for this route
+			// which is lazy-loaded when the route is visited.
+			component: () => import(/* webpackChunkName: "about" */ './views/Editorial.vue')
 		},
 		{
 			path: '/item/:id',
